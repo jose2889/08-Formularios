@@ -1,0 +1,57 @@
+<h4>Formularios <small>template</small></h4>
+<hr>
+<form (ngSubmit)="guardar(forma)" #forma="ngForm">
+
+    <div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-8">
+
+                <input class="form-control" name="Nombre" minlength="5" [(ngModel)]="usuario.Nombre" type="text" placeholder="Nombre" required #nombre="ngModel">
+                <div *ngIf="nombre.errors?.required">
+                    Este campo es requerido
+                </div>
+                <div *ngIf="nombre.errors?.minlength">por lo menos {{nombre.errors.minlength.requiredLength}} caracteres</div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col-8">
+
+                <input class="form-control" #apellido="ngModel" name="Apellido" [ngModel]="usuario.Apellido" type="text" placeholder="Apellido" required>
+                <div *ngIf="apellido.errors?.required">
+                    Este campo es requerido
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Correo</label>
+        <div class="col-md-8">
+
+            <input #correo="ngModel" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [(ngModel)]="usuario.Correo" name="Correo" type="email" placeholder="Correo electrónico" required>
+            <div *ngIf="correo.errors?.required">
+                Este campo es requerido
+            </div>
+            <div *ngIf="correo.errors?.pattern">
+                Correo Invalido
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <button type="submit" class="btn btn-outline-primary">
+        Guardar
+      </button>
+        </div>
+    </div>
+
+</form>
