@@ -11,8 +11,19 @@ export class TemplateComponent {
   usuario:object ={
     Nombre: null,
     Apellido: null,
-    Correo: null
+    Correo: null,
+    pais: "VE"
   }
+
+  paises = [{
+    codigo:"VE",
+    nombre: "VENEZUELA"
+  },
+  {
+    codigo:"CL",
+    nombre:"CHILE"
+  }]
+
   constructor() { }
 
 
