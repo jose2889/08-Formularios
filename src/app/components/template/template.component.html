@@ -8,7 +8,7 @@
             <label class="col-2 col-form-label">Nombre</label>
             <div class="col-8">
 
-                <input class="form-control" name="Nombre" minlength="5" [(ngModel)]="usuario.Nombre" type="text" placeholder="Nombre" required #nombre="ngModel">
+                <input class="form-control" name="Nombre" minlength="4" [(ngModel)]="usuario.Nombre" type="text" placeholder="Nombre" required #nombre="ngModel">
                 <div *ngIf="nombre.errors?.required && nombre.touched" class="form-control-feedback">
                     Este campo es requerido
                 </div>
@@ -43,14 +43,16 @@
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row" [ngClass]="{'has-danger': pais.errors?.required && pais.touched}">
         <label class="col-2 col-form-label">Pais</label>
         <div class="col-md-8">
-            <select name="pais" [(ngModel)]="usuario.pais" class="form-control">
-    <option value="">Seleccione un Pais</option>
-    <option *ngFor="let pais of paises" [value]="pais.codigo">{{pais.nombre}}</option>
-</select>
-
+            <select name="pais" #pais="ngModel" [(ngModel)]="usuario.pais" class="form-control" required>
+            <option value="">Seleccione un Pais</option>
+            <option *ngFor="let pais of paises" [value]="pais.codigo">{{pais.nombre}}</option>
+        </select>
+            <div *ngIf="pais.errors?.required && pais.touched" class="form-control-feedback">
+                Este campo es requerido
+            </div>
         </div>
     </div>
 
