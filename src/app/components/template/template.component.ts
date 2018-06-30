@@ -12,7 +12,8 @@ export class TemplateComponent {
     Nombre: null,
     Apellido: null,
     Correo: null,
-    pais: "VE"
+    pais: "VE",
+    sexo: "hombre"
   }
 
   paises = [{
@@ -26,7 +27,7 @@ export class TemplateComponent {
 
   constructor() { }
 
-
+  
   guardar(valor:NgForm){
 
     console.log("VALOR DE LA FORMA ", valor);
