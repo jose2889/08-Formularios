@@ -24,7 +24,7 @@ export class DataComponent {
     this.forma = new FormGroup({
         'nombrecompleto': new FormGroup({
           'nombre': new FormControl('' , [Validators.required, Validators.minLength(3)]),
-          'apellido': new FormControl('', Validators.required),
+          'apellido': new FormControl('', [Validators.required, this.noHernandez]),
 
         }),
         'correo': new FormControl('', [Validators.required, Validators.email]),
@@ -39,8 +39,15 @@ export class DataComponent {
     // this.forma.setValue(this.usuario);
   }
 
+  noHernandez(control:FormControl):any{
+    if (control.value === "hernandez"){
+      return {nohernandez:true}
+    }
+    return null;
+  }
+
   agregarPasatiempos(){
-    (<FormArray>this.forma.controls['pasatiempos']).push(new FormControl('dormir', Validators.required))
+    (<FormArray>this.forma.controls['pasatiempos']).push(new FormControl('', Validators.required))
   }
   guardarCambios(){
     console.log(this.forma.value);
