@@ -45,6 +45,10 @@ export class DataComponent {
     //tomar en cuenta el context del this
     this.forma.controls['password2'].setValidators([Validators.required, this.noIgual.bind(this.forma)  //en resumen this no es this en la función sino que es this.forma
     ]);
+
+    this.forma.controls['username'].statusChanges.subscribe(data => console.log(data));
+
+    this.forma.controls['correo'].statusChanges.subscribe(data => console.log(data));
   }
 
   noHernandez(control:FormControl):any{
