@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -28,15 +29,22 @@ export class DataComponent {
 
         }),
         'correo': new FormControl('', [Validators.required, Validators.email]),
-        'pasatiempos': new FormArray([
-          new FormControl('leer', Validators.required)
-        ])
+        'pasatiempos': new FormArray([new FormControl('leer', Validators.required)]),
+        'username': new FormControl('', Validators.required, this.existeUsuario),
+        'password1': new FormControl('', Validators.required),
+        'password2': new FormControl()
+
+
 
       }
     );
     console.log(this.usuario)
 
     // this.forma.setValue(this.usuario);
+
+    //tomar en cuenta el context del this
+    this.forma.controls['password2'].setValidators([Validators.required, this.noIgual.bind(this.forma)  //en resumen this no es this en la función sino que es this.forma
+    ]);
   }
 
   noHernandez(control:FormControl):any{
@@ -44,6 +52,32 @@ export class DataComponent {
       return {nohernandez:true}
     }
     return null;
+  }
+
+  noIgual(control:FormControl):any{
+    //se declara una variable para entender mejor el contexto del this
+    let forma:any = this;
+
+    if (control.value !== forma.controls['password1'].value){
+      return {noiguales:true}
+    }
+    return null;
+  }
+
+  existeUsuario(control:FormControl):Promise<any> | Observable<any>{
+   //validando de forma asincrona, se simula una consulta de usuario a la base de datos
+   let promesa = new Promise(
+     (resolve,reject) => {
+       setTimeout(() => {
+         if (control.value === "jose"){
+           resolve({ existe:true })
+         }else{
+           resolve(null)
+         }
+       }, 3000);
+     }
+   )
+    return promesa;
   }
 
   agregarPasatiempos(){
